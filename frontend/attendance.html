@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance</title>
+</head>
+<body>
+  <h2>Mark Attendance</h2>
+
+  <form id="attendanceForm">
+    <select id="teacherSelect" required></select>
+    <input type="date" id="date" required />
+    <select id="status" required>
+      <option value="Present">Present</option>
+      <option value="Absent">Absent</option>
+    </select>
+    <button type="submit">Mark</button>
+  </form>
+
+  <ul id="attendanceList"></ul>
+  <script>
+  if (!localStorage.getItem('isLoggedIn')) {
+    window.location.href = 'login.html';
+  }
+</script>
+
+
+  <script src="script_attendance.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f0f4f8;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    .card {
+      display: inline-block;
+      background: #fff;
+      padding: 20px 30px;
+      margin: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .logout-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    if (!localStorage.getItem('isLoggedIn')) {
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <h1>Welcome to School Management Dashboard</h1>
+
+  <a class="card" href="teachers.html">👨‍🏫 Manage Teachers</a>
+  <a class="card" href="attendance.html">🗓️ Manage Attendance</a>
+  <a class="card" href="student_registration.html">Student Registration</a>
+
+  <br>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+
+  <script>
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'login.html';
+    }
+  </script>
+
+</body>
+</html>

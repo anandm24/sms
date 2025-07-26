@@ -1,0 +1,70 @@
+<!-- teacher.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teacher Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h2>Teachers</h2>
+
+  <form id="teacherForm">
+  <input type="text" id="name" placeholder="Name" required />
+  <input type="text" id="subject" placeholder="Subject" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="text" id="phone" placeholder="Phone" />
+  <button type="submit">Add Teacher</button>
+</form>
+
+
+  <ul id="teacherList"></ul>
+  <script>
+  if (!localStorage.getItem('isLoggedIn')) {
+    window.location.href = 'login.html';
+  }
+</script>
+
+
+  <script>
+    // Load all teachers on page load
+async function loadTeachers() {
+  const res = await fetch('http://localhost:5000/api/teachers');
+  const data = await res.json();
+  const list = document.getElementById('teacherList');
+  list.innerHTML = '';
+  data.forEach(t => {
+    const li = document.createElement('li');
+    li.textContent = `${t.name} - ${t.subject}`;
+    list.appendChild(li);
+  });
+}
+
+loadTeachers();
+
+// Handle add teacher form
+document.getElementById('teacherForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value.trim();
+  const subject = document.getElementById('subject').value.trim();
+  const email = document.getElementById('email').value.trim();   // ✅ Add this
+  const phone = document.getElementById('phone').value.trim();   // ✅ Add this
+
+  const res = await fetch('http://localhost:5000/api/teachers', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, subject, email, phone })        // ✅ Send all
+  });
+
+  if (res.ok) {
+    alert('Teacher added!');
+    loadTeachers(); // refresh list
+    document.getElementById('teacherForm').reset();
+  } else {
+    alert('Failed to add teacher');
+  }
+});
+
+  </script>
+</body>
+</html>
